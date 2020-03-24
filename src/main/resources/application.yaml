@@ -1,9 +1,6 @@
 spring:
   datasource:
-    #driver-class-name: #auto-detect based on the URL by default
-#    url: jdbc:mysql://144.34.242.178:3306/myblog
-#    username: kevin
-#    password: MyBlog144
+    #
     url: jdbc:mysql://localhost:3306/myblog
     username: root
     password: root
