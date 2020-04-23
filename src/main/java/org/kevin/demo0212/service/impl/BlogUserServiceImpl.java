@@ -14,7 +14,7 @@ import java.util.List;
  * @version 2020-03-14
  */
 @Service
-public class BlogBlogUserServiceImpl implements BlogUserService {
+public class BlogUserServiceImpl implements BlogUserService {
     @Autowired
     private BlogUserMapper blogUserMapper;
 

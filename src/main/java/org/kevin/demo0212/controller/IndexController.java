@@ -1,6 +1,7 @@
 package org.kevin.demo0212.controller;
 
 import org.kevin.demo0212.common.Constant;
+import org.kevin.demo0212.config.annotations.AopLog;
 import org.kevin.demo0212.model.Article;
 import org.kevin.demo0212.model.ArticleType;
 import org.kevin.demo0212.model.BlogUser;
@@ -13,6 +14,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,6 +27,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDateTime;
+import java.util.Collection;
 import java.util.List;
 
 /**
@@ -58,6 +64,7 @@ public class IndexController extends BaseController{
         return "newArticle";
     }
 
+    @AopLog("this is to write an article.")
     @GetMapping("/article")
     public String article(@RequestParam("id") String id, ModelMap modelMap) {
         List<ArticleType> articleTypes = articleTypeService.findList();
@@ -73,8 +80,8 @@ public class IndexController extends BaseController{
                                @RequestParam(value = "pageSize", required = false) Integer pageSize,
                                @RequestParam(value = "moment", required = false) String moment,
                                ModelMap modelMap) {
-        BlogUser blogUser = getCurrentBlogUser();
-        System.err.println("the current BlogUser's name:" + blogUser.getUsername());
+//        BlogUser blogUser = getCurrentBlogUser();
+//        System.err.println("the current BlogUser's name:" + principal.getUsername());
 
         List<SecretMoment> secretMoments = secretMomentService.findList(moment, pageNum, pageSize);
         long count = secretMomentService.count(moment);

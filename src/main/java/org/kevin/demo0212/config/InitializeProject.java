@@ -3,6 +3,7 @@ package org.kevin.demo0212.config;
 import org.kevin.demo0212.common.Constant;
 import org.kevin.demo0212.model.AlertWall;
 import org.kevin.demo0212.model.ArticleType;
+import org.kevin.demo0212.repository.MyRedisRepository;
 import org.kevin.demo0212.service.AlertWallService;
 import org.kevin.demo0212.service.ArticleTypeService;
 import org.springframework.beans.BeansException;
@@ -32,8 +33,8 @@ public class InitializeProject implements InitializingBean, ApplicationContextAw
     @Autowired
     private ServletContext sc;
 
-    @Resource
-    private RedisTemplate<String, Object> redisTemplate;
+    @Autowired
+    private MyRedisRepository redisRepository;
 
     @Override
     public void afterPropertiesSet() throws Exception {
@@ -48,7 +49,7 @@ public class InitializeProject implements InitializingBean, ApplicationContextAw
         sc.setAttribute("secretMomentWall", secretMomentWall);
         sc.setAttribute("financeWall", financeWall);
 
-        redisTemplate.opsForValue().set("name", "KevinZng");
+        redisRepository.set("name", "KevinZng");
     }
 
     @Override

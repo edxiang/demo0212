@@ -40,19 +40,9 @@
       <property name="enableSubPackages" value="true" />
     </javaClientGenerator>
 
-    <table tableName="alert_wall" domainObjectName="AlertWall">
+    <table tableName="cuser" domainObjectName="Cuser">
     </table>
-    <table tableName="article" domainObjectName="Article">
-    </table>
-    <table tableName="article_type" domainObjectName="ArticleType">
-    </table>
-    <table tableName="finance" domainObjectName="Finance">
-    </table>
-    <table tableName="secret_moment" domainObjectName="SecretMoment">
-    </table>
-    <table tableName="picture" domainObjectName="Picture">
-    </table>
-    <table tableName="blog_user" domainObjectName="BlogUser">
+    <table tableName="post" domainObjectName="Post">
     </table>
 
 

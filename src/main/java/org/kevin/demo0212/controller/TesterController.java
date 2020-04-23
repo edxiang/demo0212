@@ -3,13 +3,15 @@ package org.kevin.demo0212.controller;
 import org.kevin.demo0212.model.SecretMoment;
 import org.kevin.demo0212.service.SecretMomentService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
+import java.util.Collection;
 import java.util.List;
 
 /**
@@ -39,5 +41,18 @@ public class TesterController {
             }
         }
         return "index";
+    }
+
+    @GetMapping("/tester/getUserBySecurity")
+    @ResponseBody
+    public String getUserBySecurity(){
+        // 通过 SecurityContextHolder 获取的 principal 其实就是 Security 内置的 User 类
+        SecurityContext context = SecurityContextHolder.getContext();
+        Authentication authentication = context.getAuthentication();
+        String username = authentication.getName();
+        Object principal = authentication.getPrincipal();
+        Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
+
+        return "1";
     }
 }

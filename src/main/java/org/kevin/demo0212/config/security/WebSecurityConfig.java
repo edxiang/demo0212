@@ -5,6 +5,7 @@ import org.kevin.demo0212.service.BlogUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -15,6 +16,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
@@ -33,11 +35,21 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private BlogUserService blogUserService;
 
+//    @Autowired
+//    private CustomUserDetailService userDetailService;
+
+//    @Override
+//    public void configure(AuthenticationManagerBuilder auth) throws Exception{
+//        auth.userDetailsService(userDetailService);
+//    }
+
     @Override
     public void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
                 .antMatchers("/", "/index").permitAll()
                 .antMatchers("/assets/**").permitAll()
+                .antMatchers("/app/**").permitAll() // to test interceptor
+                .antMatchers("/mongodb/**").permitAll() // to test mongoDB
                 .antMatchers("/**").authenticated()
                 .and()
                 .formLogin()

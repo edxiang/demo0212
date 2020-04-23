@@ -1,7 +1,10 @@
 package org.kevin.demo0212.controller;
 
+import org.kevin.demo0212.common.MyException;
+import org.kevin.demo0212.model.dto.ResultData;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.io.IOException;
 
@@ -24,9 +27,18 @@ public class ExceptionController {
         return "error";
     }
 
-    @ExceptionHandler(Exception.class)
-    public String handleException(){
-        System.err.println("Exception Error");
-        return "error";
+    @ExceptionHandler(MyException.class)
+    @ResponseBody
+    public ResultData handleMyException(MyException e){
+        ResultData rd = new ResultData();
+        rd.setMsg(e.getMessage());
+        rd.setCode(e.getCode());
+        return rd;
     }
+
+//    @ExceptionHandler(Exception.class)
+//    public String handleException(){
+//        System.err.println("Exception Error");
+//        return "error";
+//    }
 }

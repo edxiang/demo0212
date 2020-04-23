@@ -1,18 +1,16 @@
 package org.kevin.demo0212;
 
+import javafx.geometry.Pos;
 import net.bytebuddy.asm.Advice;
 import org.junit.jupiter.api.Test;
 import org.kevin.demo0212.common.CommonUtils;
-import org.kevin.demo0212.model.Article;
-import org.kevin.demo0212.model.BlogUser;
-import org.kevin.demo0212.model.SecretMoment;
-import org.kevin.demo0212.model.SecretMomentExample;
-import org.kevin.demo0212.service.ArticleService;
-import org.kevin.demo0212.service.BlogUserService;
-import org.kevin.demo0212.service.SecretMomentService;
+import org.kevin.demo0212.model.*;
+import org.kevin.demo0212.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 
 @SpringBootTest
@@ -61,5 +59,37 @@ class Demo0212ApplicationTests {
 	void testArticleRowBounds(){
 		List<Article> list = articleService.findList(7);
 		System.out.println(list.size());
+	}
+
+	@Autowired
+	private CuserService cuserService;
+	@Autowired
+	private PostService postService;
+	@Test
+	void testMany2One(){
+//		Cuser c = new Cuser();
+//		c.setId("whatisthis");
+//		cuserService.insert(c);
+//
+//		Post p1 = new Post();
+//		p1.setCuserId(c.getId());
+//		p1.setTitle("p1");
+//		p1.setContent("this is the p1" + new Date().toString());
+//
+//		Post p2 = new Post();
+//		p2.setCuserId(c.getId());
+//		p2.setTitle("p2");
+//		p2.setContent("this is the p2" + new Date().toString());
+//		postService.insert(p1);
+//		postService.insert(p2);
+
+		Cuser user = cuserService.getUserPost("6fad6821b4ce4f79b728047828b28b95");
+		System.out.println(user.getPosts().size());
+	}
+	@Test
+	void testOne2Many(){
+		String postId = "469fa5a9058144ec8efc06064ae30d02";
+		Post p = postService.getPostWithUser(postId);
+		System.out.println(p.getContent());
 	}
 }
